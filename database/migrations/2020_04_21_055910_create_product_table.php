@@ -18,6 +18,7 @@ class CreateProductTable extends Migration
             $table->string('name');
             $table->string('url');
             $table->integer('category_id')->unsigned()->index();
+            $table->integer('brand_id')->unsigned()->index();
             $table->integer('stock');
             $table->longtext('description');
             $table->integer('status');
@@ -32,6 +33,10 @@ class CreateProductTable extends Migration
             $table->timestamps();
             $table->foreign('category_id')
                 ->references('id')->on('category')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('brand_id')
+                ->references('id')->on('brand')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

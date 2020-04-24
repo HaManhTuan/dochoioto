@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/lib/bootstrap/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/lib/font-awesome/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/lib/select2/css/select2.min.css') }}" />
@@ -15,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/css/responsive.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/css/option2.css') }}" />
     <script type="text/javascript" src="{{ asset('public/frontend/assets/lib/jquery/jquery-1.11.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/frontend/assets/lib/jquery-ui/jquery-ui.min.js')}}"></script>
     <title>Đồ chơi ô tô</title>
 </head>
 <body class="home option2">

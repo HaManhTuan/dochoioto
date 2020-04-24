@@ -69,6 +69,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
         Route::match(['get', 'post'], 'edit-blog/{id}', 'BlogController@editblog');
         Route::post('delete-blog', 'BlogController@delblog');
     });
+    //Brand
+    Route::group(['prefix' => 'brand', 'middleware' => 'Admin'], function () {
+        Route::get('view-brand', 'BrandController@viewbrand');
+        Route::get('add', 'BrandController@add');
+        Route::post('add-brand', 'BrandController@addbrand');
+        Route::match(['get', 'post'], 'edit-brand/{id}', 'BrandController@editbrand');
+        Route::post('delete-brand', 'BrandController@delbrand');
+    });
 
 });
 ?>

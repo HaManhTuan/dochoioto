@@ -46,6 +46,11 @@
                         <i class="fa fa-fw fa-rocket"></i>Tin tức</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ (request()->is('admin/brand/view-brand')) ? 'active' : '' }}" href="
+                            {{ url('admin/brand/view-brand') }}"  aria-expanded="false">
+                        <i class="fa fa-fw fa-rocket"></i>Thương hiệu</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" 
                         data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>
                         Cấu hình</a>

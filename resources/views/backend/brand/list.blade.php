@@ -49,12 +49,12 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title">Danh sách sản phẩm
+            <h2 class="pageheader-title">Danh sách thương hiệu
             </h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Sản phẩm</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Thương hiệu</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Danh sách</li>
                     </ol>
                 </nav>
@@ -66,7 +66,7 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
             <div class="card-header">
-                @can('add_product')
+                @can('add_blog')
                 <div class="card-header"><span class="badge badge-primary rd-add" style="padding: 8px 15px;"
                     ><i class="mdi mdi-plus" ></i> Thêm mới</span>
                     <span class="dashboard-spinner spinner-custom custom-load"></span>
@@ -74,15 +74,14 @@
                 @endcan
             </div>
             <div class="card-body">
-                @if ($products->count() > 0)
-                <table class="table table-striped table-bordered" id="table-product">
+                @if ($dataBrand->count() > 0)
+                <table class="table table-striped table-bordered" id="brand-table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Tên thương hiệu</th>
                                 <th scope="col" style="width: 200px;">Ảnh đại diện</th>
-                                <th scope="col" class="text-center">Danh mục</th>
-                                <th scope="col" style="text-align:center">SL </th>
+                               
                                 <th style="width: 200px;">Hành động</th>
                             </tr>
                         </thead>
@@ -90,38 +89,19 @@
                             @php
                                 $stt = 1;
                             @endphp
-                            @foreach ($products as $record)
-                                <tr class="tr-item" id="tr-item-{{$record->id}}">
-                                    <td>{{ $stt++ }}</td>
+                            @foreach ($dataBrand as $element)
+                                <tr class="tr-item" id="tr-item-{{ $element->id}}">
+                                    <td>{{$stt++}}</td>
+                                    <td>{{$element->name}}</td>
+                                    <td><img src="{{ asset('public/uploads/images/brand/'.$element->icon) }}" height="200"></td>
                                     <td>
-                                        {{ $record->name}} <br>
-                                        =========================
-                                        <p class="">Giá: <span class="text-danger">{{ number_format($record->price) }}</span> VNĐ</p>
-                                        @if ($record->promotional_price > 0)  
-                                         <p class="">Giá KM: <span class="text-success">{{ number_format($record->promotional_price) }}</span> VNĐ</p>
-                                         <p class="">Sale: <span class="text-success">{{ ($record->sale) }}</span> %</p>
-                                        @endif
-                                         ========================= 
-                                        <p>Người tạo: {{ $record->user->name }}</p>
-                                        ========================= <br>
-                                        <p>Ngày tạo: {{ $record->created_at }}</p> 
-                                        ========================= <br>
-                                        <p>Ngày nhập hàng: {{ $record->updated_at }}</p> 
-                                    </td>
-                                    <td><img src="{{ asset('public/uploads/images/products/'.$record->image) }}" style="max-width: 100%;"></td>
-                                    <td>
-                                        {{ $record->category->name }}
-                                    </td>
-                                    <td>{{ $record->stock }}</td>
-                                    <td>
-                                        @can('edit_product')
-                                        <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Thêm ảnh" onclick="window.location.href='{{ url('admin/product/add-image/'.$record->url) }}'"><i class="fa fa-image"></i></button>
-                                        <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Sửa sản phẩm" onclick="window.location.href='{{ url('admin/product/edit-pro/'.$record->url) }}'"><i class="fa fa-pencil-alt"></i></button>
+                                        @can('edit_blog')
+                                        <button class="btn btn-primary" onclick="window.location.href='{{ url('admin/brand/edit-brand/'.$element->id) }}'" data-toggle="tooltip" data-placement="top" title="Sửa thương hiệu">Sửa</button>
                                         @endcan
-                                        @can('delete_product')
-                                        <button class="btn btn-danger btn-del" data-id="{{ $record->id }}" data-toggle="tooltip" data-placement="top" title="Xóa sản phẩm"><i class="fa fa-trash-alt"></i></button>
+                                        @can('delete_blog')
+                                        <button class="btn btn-danger btn-del" data-id="{{ $element->id }}" data-toggle="tooltip" data-placement="top" title="Xóa thương hiệu">Xóa</button>
                                         @endcan
-                                    </td>
+                                    </td>                                    
                                 </tr>
                             @endforeach
                         </tbody>
@@ -138,7 +118,7 @@
 <script src="{{ asset('public/admin/assets/vendor/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{ asset('public/admin/assets/vendor/datatables/js/data-table.js')}}"></script>
 <script>
-  $('#table-product').DataTable({
+  $('#table-blog').DataTable({
     "columnDefs": [
         { "orderable": false, "targets": 0 },
         { "orderable": false, "targets": 2 },
@@ -154,7 +134,7 @@
         Swal({
             title: 'Xác nhận xóa?',
             type: 'error',
-            html: '<p>Bạn sắp xóa 1 sản phẩm.</p><p>Bạn có chắn chắn muốn xóa?</p>',
+            html: '<p>Bạn sắp xóa 1 tin tức.</p><p>Bạn có chắn chắn muốn xóa?</p>',
             showConfirmButton: true,
             confirmButtonText: '<i class="ti-check" style="margin-right:5px"></i>Đồng ý',
             confirmButtonColor: '#ef5350',
@@ -165,7 +145,7 @@
         }).then((result) => {
             if (result.value == true) {
                 $.ajax({
-                    url: '{{ url('admin/product/delete-pro') }}',
+                    url: '{{ url('admin/brand/delete-brand') }}',
                     type: 'POST',
                     data: {
                         id: id,
@@ -186,7 +166,7 @@
                                 timer: 2000
                             }).then(() => {
                                 $("#tr-item-" + id).remove();
-                                if ($("#table-product .tr-item").length == 0) {
+                                if ($("#brand-table .tr-item").length == 0) {
                                     location.reload();
                                 }
                             });

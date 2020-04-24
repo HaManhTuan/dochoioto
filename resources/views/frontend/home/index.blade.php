@@ -36,7 +36,6 @@
         </div>
     </div>
 </div>
-<!---->
 <div class="content-page">
     <div class="container">
         <!-- featured category fashion -->
