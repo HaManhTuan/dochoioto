@@ -109,8 +109,8 @@ a:focus{
   padding: 5px 10px;
 }
 .button:hover{
-  background: #ff3366;
-  border: 1px solid #ff3366;
+  background: #4c311d;
+  border: 1px solid #4c311d;
 }
 .input{
   border-radius: 0px;
@@ -4437,7 +4437,7 @@ span.notify-right{
   border: 1px solid #eaeaea;
   -webkit-box-shadow: inherit;
   box-shadow: inherit;
-  width: 50%;
+  width: 100%;
 }
 .box-authentication  .button{
   margin-top: 15px;

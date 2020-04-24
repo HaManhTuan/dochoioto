@@ -14,7 +14,7 @@
                 <div class="dropdown">
                     <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>Tài khoản</span></a>
                     <ul class="dropdown-menu mega_dropdown" role="menu">
-                        <li><a href="login.html">Đăng nhập</a></li>
+                        <li><a href="{{ url('/dang-nhap') }}">Đăng nhập</a></li>
                     </ul>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                         <ul class="vertical-menu-list">
                             @foreach ($menu_data as $item)
                             <li>
-                                <a class="parent" href="#"><img class="icon-menu" alt="Funky roots" src="{{ asset('public/uploads/images/category/'.$item['icon']) }}">{{ $item['name']}}</a>
+                                <a class="parent" href="{{ url('danh-muc/'.$item['url']) }}"><img class="icon-menu" alt="Funky roots" src="{{ asset('public/uploads/images/category/'.$item['icon']) }}">{{ $item['name']}}</a>
                                     @if ( count($item['child']) > 0 )
                                         <div class="vertical-dropdown-menu">
                                             <div class="vertical-groups col-sm-12">
@@ -148,8 +148,8 @@
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
-                                    <li class="active"><a href="#">Trang chủ</a></li>
-                                    <li><a href="category.html">Giá sốc</a></li>
+                                    <li class="{{(request()->is('/') ? "active":"")}}"><a href=" {{ url('/') }}">Trang chủ</a></li>
+                                    <li class="{{(request()->is('gia-soc') ? "active":"")}}"><a href="{{ url('/gia-soc') }}">Giá sốc</a></li>
                                     <li><a href="category.html">Hướng dẫn mua hàng</a></li>
                                     <li><a href="category.html">Hỗ trợ</a></li>
                                     <li><a href="category.html">Kiểm tra đơn hàng</a></li>

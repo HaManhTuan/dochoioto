@@ -1,6 +1,6 @@
 @extends('layouts.admin.admin')
 @section('content')
-<link rel="stylesheet" href="{{ asset('public/frontend/css-custom/dropify.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/admin/dropify.css') }}">
 <style>
     .error{
         color: brown;
@@ -13,7 +13,7 @@
 </style>
 <link rel="stylesheet" href="{{ asset('public/admin/assets/css/bootstrap-4.css') }}">
 <link rel="stylesheet" href="{{ asset('public/admin/assets/css/animate.css') }}">
-<script src="{{ asset('public/admin/assets/js/plugins/notify.js')}}"></script>
+<script src="{{ asset('public/admin/notify.js')}}"></script>
 
  <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -143,6 +143,25 @@
                             </div>
                         </div>
                      </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label class="control-label" for="description">Thương hiệu:</label>
+                            </div>
+                            <div class="col-sm-9">
+                             <select class="form-control" name="brand_id">
+                                 <option selected="" disabled="">--Chọn--</option>
+                                 @foreach ($dataBrand as $element)
+                                     <option value="{{$element->id}}">{{$element->name}}</option>}
+                                    
+                                 @endforeach
+                             </select>
+                             @error('file')
+                             <small class="text-danger font-16">{{ $message }}.</small>
+                            @enderror
+                            </div>
+                        </div>
+                     </div>
                      <div class="form-group">
                         <div class="row">
                             <div class="col-sm-2">
@@ -181,7 +200,7 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('public/frontend/js-custom/dropify.min.js') }}"></script>
+<script src="{{ asset('public/admin/dropify.js') }}"></script>
 <script src="{{ asset('public/admin/assets/js/plugins/jquery.validate.min.js')}}"></script>
 <script>
     $(".dropify").dropify();

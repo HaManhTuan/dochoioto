@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/lib/jquery.bxslider/jquery.bxslider.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/lib/owl.carousel/owl.carousel.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/lib/jquery-ui/jquery-ui.css') }}" />
+     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/lib/fancyBox/jquery.fancybox.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/css/animate.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/css/reset.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/assets/css/style.css') }}" />
@@ -38,8 +39,10 @@
 <!-- COUNTDOWN -->
 <script type="text/javascript" src="{{ asset('public/frontend/assets/lib/countdown/jquery.plugin.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/frontend/assets/lib/countdown/jquery.countdown.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/assets/lib/jquery.elevatezoom.js') }}"></script>
 <!-- ./COUNTDOWN -->
 <script type="text/javascript" src="{{ asset('public/frontend/assets/js/jquery.actual.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/frontend/assets/lib/fancyBox/jquery.fancybox.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/frontend/assets/js/theme-script.js') }}"></script>
 </body>
 </html>

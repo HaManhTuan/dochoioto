@@ -13,7 +13,7 @@
                         @foreach ($dataproSale as $element)
                             <li>
                                 <div class="left-block">
-                                    <a href="#"><img class="img-responsive" alt="product" src="{{ asset('public/uploads/images/products/'.$element->image) }}" /></a>
+                                    <a href="{{ url('san-pham/'.$element->url) }}"><img class="img-responsive" alt="product" src="{{ asset('public/uploads/images/products/'.$element->image) }}" /></a>
                                     <div class="add-to-cart">
                                         <a title="Add to Cart" href="#">Add to Cart</a>
                                     </div>
@@ -39,7 +39,7 @@
 <div class="content-page">
     <div class="container">
         <!-- featured category fashion -->
-        @foreach ($dataCate as $element)
+        @foreach ($dataCate as  $key1 => $element)
        
             <div class="category-featured fashion">
                 <nav class="navbar nav-menu show-brand">
@@ -57,7 +57,7 @@
                     </div><!-- /.navbar-collapse -->
                   </div><!-- /.container-fluid -->
                   <div id="elevator-{{$element->id}}" class="floor-elevator">
-                        <a href="#" class="btn-elevator up disabled fa fa-angle-up"></a>
+                        <a href="@if ($key1 == "0")#@elseif($key1 == "1")#elevator-{{$element->id - 1}}@elseif($key1 == "2")#elevator-{{$element->id - 1}}@endif" class="btn-elevator up {{$key1 == "0" ? "disabled":""}} fa fa-angle-up"></a>
                         <a href="#elevator-{{$element->id}}" class="btn-elevator down fa fa-angle-down"></a>
                   </div>
                 </nav>
@@ -76,13 +76,13 @@
                                                 @foreach ($dataProCateChild as $item1)
                                                     <li class="col-sm-3">
                                                         <div class="left-block">
-                                                            <a href="#"><img class="img-responsive" alt="product" src="{{ asset('public/uploads/images/products/'.$item1->image) }}" /></a>
+                                                            <a href="{{ url('san-pham/'.$item1->url) }}"><img class="img-responsive" alt="product" src="{{ asset('public/uploads/images/products/'.$item1->image) }}" /></a>
                                                             <div class="add-to-cart">
                                                                 <a title="Add to Cart" href="#">Add to Cart</a>
                                                             </div>
                                                         </div>
                                                         <div class="right-block">
-                                                            <h5 class="product-name"><a href="#">{{$item1->name}}</a></h5>
+                                                            <h5 class="product-name"><a href="{{ url('san-pham/'.$item1->url) }}">{{$item1->name}}</a></h5>
                                                             <div class="content_price">
                                                                 <span class="price product-price">{{number_format($item1->price)}} VNĐ</span>
                                                             </div>

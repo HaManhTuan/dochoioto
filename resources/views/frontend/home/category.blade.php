@@ -7,198 +7,25 @@
  background: url('{{ asset('public/frontend/loader.gif') }}') no-repeat center; 
  height: 150px;
 }
+#loadMore {
+    padding: 10px;
+    text-align: center;
+    background-color: #4c311d;
+    color: #fff;
+    border-width: 0 1px 1px 0;
+    border-style: solid;
+    border-color: #fff;
+    box-shadow: 0 1px 1px #ccc;
+    transition: all 600ms ease-in-out;
+    -webkit-transition: all 600ms ease-in-out;
+    -moz-transition: all 600ms ease-in-out;
+    -o-transition: all 600ms ease-in-out;
+}
+#loadMore:hover {
+    background-color: #958457;
+    color: #fff;
+}
 </style>
-<div class="columns-container">
-    <div class="container" id="columns">
-        <!-- breadcrumb -->
-        <div class="breadcrumb clearfix">
-            <a class="home" href="#" title="Return to Home">Trang chủ</a>
-            <span class="navigation-pipe">&nbsp;</span>
-            <span class="navigation_page">{{ $dataCate->name}}</span>
-        </div>
-        <!-- ./breadcrumb -->
-        <!-- row -->
-        <div class="row">
-            <!-- Left colunm -->
-            <div class="column col-xs-12 col-sm-3" id="left_column">
-                <!-- block category -->
-                <div class="block left-module">
-                    <p class="title_block">Danh mục sản phẩm</p>
-                    <div class="block_content">
-                        <!-- layered -->
-                        <div class="layered layered-category">
-                            <div class="layered-content">
-                                <ul class="tree-menu">
-                                    <li class="active">
-                                        <span></span><a href="#">{{$dataCate->name}}</a>
-                                        <ul style="display: block;">
-                                          @foreach($dataCate->categories as $element) 
-                                            <li><span></span><a href="{{ url('danh-muc/'.$element->url) }}">
-                                              {{ $element->name}}
-                                            </a></li>
-                                          @endforeach
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- ./layered -->
-                    </div>
-                </div>
-                <!-- ./block category  -->
-                <!-- block filter -->
-                <div class="block left-module">
-                    <p class="title_block">Khoảng giá</p>
-                    <div class="block_content">
-                        <!-- layered -->
-                        <div class="layered layered-filter-price">
-                            <!-- filter price -->
-                            <div class="layered_subtitle">giá</div>
-                            <div class="layered-content slider-range">
-                                <input type="text" id="hidden_minimum_price" value="0" />
-                                <input type="text" id="hidden_maximum_price" value="12000000" />
-                                <div data-label-reasult="Giá:" data-min="0" data-max="12000000" data-unit="VNĐ" class="slider-range-price" data-value-min="100000" data-value-max="1000000"></div>
-                                <div class="amount-range-price">Giá: 300 nghìn - 1 triệu</div>
-{{--                                 <ul class="check-box-list">
-                                    <li>
-                                        <input type="checkbox" id="p1" name="cc" />
-                                        <label for="p1">
-                                        <span class="button"></span>
-                                        $20 - $50<span class="count">(0)</span>
-                                        </label>   
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" id="p2" name="cc" />
-                                        <label for="p2">
-                                        <span class="button"></span>
-                                        $50 - $100<span class="count">(0)</span>
-                                        </label>   
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" id="p3" name="cc" />
-                                        <label for="p3">
-                                        <span class="button"></span>
-                                        $100 - $250<span class="count">(0)</span>
-                                        </label>   
-                                    </li>
-                                </ul> --}}
-                            </div>
-                            <!-- ./filter price -->
-                            <!-- ./filter brand -->
-                            <div class="layered_subtitle">thương hiệu</div>
-                            <div class="layered-content filter-brand">
-                                <ul class="check-box-list">
-                                    @foreach ($dataBrand as $element)
-                                        <li>
-                                            <input type="checkbox" id="brand{{ $element->id}}" name="cc" class="common_selector brand" value="{{ $element->id}}"/>
-                                            <label for="brand{{ $element->id}}">
-                                            <span class="button"></span>
-                                                {{ $element->name}}
-                                            </label>   
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <!-- ./filter brand -->
-                        </div>
-                        <!-- ./layered -->
-
-                    </div>
-                </div>
-                <!-- ./block filter  -->
-                <!-- Testimonials -->
-                <div class="block left-module">
-                    <p class="title_block">Testimonials</p>
-                    <div class="block_content">
-                        <ul class="testimonials owl-carousel" data-loop="true" data-nav = "false" data-margin = "30" data-autoplayTimeout="1000" data-autoplay="true" data-autoplayHoverPause = "true" data-items="1">
-                            <li>
-                                <div class="client-mane">Roverto & Maria</div>
-                                <div class="client-avarta">
-                                    <img src="assets/data/testimonial.jpg" alt="client-avarta">
-                                </div>
-                                <div class="testimonial">
-                                    "Your product needs to improve more. To suit the needs and update your image up"
-                                </div>
-                            </li>
-                            <li>
-                                <div class="client-mane">Roverto & Maria</div>
-                                <div class="client-avarta">
-                                    <img src="assets/data/testimonial.jpg" alt="client-avarta">
-                                </div>
-                                <div class="testimonial">
-                                    "Your product needs to improve more. To suit the needs and update your image up"
-                                </div>
-                            </li>
-                            <li>
-                                <div class="client-mane">Roverto & Maria</div>
-                                <div class="client-avarta">
-                                    <img src="assets/data/testimonial.jpg" alt="client-avarta">
-                                </div>
-                                <div class="testimonial">
-                                    "Your product needs to improve more. To suit the needs and update your image up"
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- ./Testimonials -->
-            </div>
-            <!-- ./left colunm -->
-            <!-- Center colunm-->
-            <div class="center_column col-xs-12 col-sm-9" id="center_column">
-                <!-- view-product-list-->
-                <div id="view-product-list" class="view-product-list">
-                    <h2 class="page-heading">
-                        <span class="page-heading-title">{{$dataCate->name}}</span>
-                    </h2>
-                    <ul class="display-product-option">
-                        <li class="view-as-grid selected">
-                            <span>grid</span>
-                        </li>
-                        <li class="view-as-list">
-                            <span>list</span>
-                        </li>
-                    </ul>
-                    <!-- PRODUCT LIST -->
-                    <ul class="row product-list grid filter_data">
-                        
-                    </ul>
-                    <!-- ./PRODUCT LIST -->
-                </div>
-                <!-- ./view-product-list-->
-                <div class="sortPagiBar">
-                    <div class="bottom-pagination">
-                        <nav>
-                          <ul class="pagination">
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                              <a href="#" aria-label="Next">
-                                <span aria-hidden="true">Next &raquo;</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav>
-                    </div>
-                    <div class="show-product-item">
-                        <select name="">
-                            <option value="">Show 18</option>
-                            <option value="">Show 20</option>
-                            <option value="">Show 50</option>
-                            <option value="">Show 100</option>
-                        </select>
-                    </div>
-
-                </div>
-            </div>
-            <!-- ./ Center colunm -->
-        </div>
-        <!-- ./row-->
-    </div>
-</div>
 <script>
   jQuery(document).ready(function($) {
     $("body").removeClass('home');
@@ -219,9 +46,11 @@
                 'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
             },
             data:{minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
+            dataType: "JSON",
             success:function(data){
                 console.log(data);
-                $('.filter_data').html(data);
+                $('.filter_data').html(data.output);
+                $('#script').html(data.script);
             },
             error: function(err){
                 console.log(err);
@@ -289,4 +118,108 @@
         })
   });
 </script>
+<div class="columns-container">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="{{ url('/')}}" title="Return to Home">Trang chủ</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">{{ $dataCate->name}}</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <!-- row -->
+        <div class="row">
+            <!-- Left colunm -->
+            <div class="column col-xs-12 col-sm-3" id="left_column">
+                <!-- block category -->
+                <div class="block left-module">
+                    <p class="title_block">Danh mục sản phẩm</p>
+                    <div class="block_content">
+                        <!-- layered -->
+                        <div class="layered layered-category">
+                            <div class="layered-content">
+                                <ul class="tree-menu">
+                                    <li class="active">
+                                        <span></span><a href="#">{{$dataCate->name}}</a>
+                                        <ul style="display: block;">
+                                          @foreach($dataCate->categories as $element) 
+                                            <li><span></span><a href="{{ url('danh-muc/'.$element->url) }}">
+                                              {{ $element->name}}
+                                            </a></li>
+                                          @endforeach
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- ./layered -->
+                    </div>
+                </div>
+                <!-- ./block category  -->
+                <!-- block filter -->
+                <div class="block left-module">
+                    <p class="title_block">Khoảng giá</p>
+                    <div class="block_content">
+                        <!-- layered -->
+                        <div class="layered layered-filter-price">
+                            <!-- filter price -->
+                            <div class="layered_subtitle">giá</div>
+                            <div class="layered-content slider-range">
+                                <input type="hidden" id="hidden_minimum_price" value="0" />
+                                <input type="hidden" id="hidden_maximum_price" value="12000000" />
+                                <div data-label-reasult="Giá:" data-min="0" data-max="12000000" data-unit="VNĐ" class="slider-range-price" data-value-min="100000" data-value-max="1000000"></div>
+                                <div class="amount-range-price">Giá: 300 nghìn - 1 triệu</div>
+                            </div>
+                            <!-- ./filter price -->
+                            <!-- ./filter brand -->
+                            <div class="layered_subtitle">thương hiệu</div>
+                            <div class="layered-content filter-brand">
+                                <ul class="check-box-list">
+                                    @foreach ($dataBrand as $element)
+                                        <li>
+                                            <input type="checkbox" id="brand{{ $element->id}}" name="cc" class="common_selector brand" value="{{ $element->id}}"/>
+                                            <label for="brand{{ $element->id}}">
+                                            <span class="button"></span>
+                                                {{ $element->name}}
+                                            </label>   
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <!-- ./filter brand -->
+                        </div>
+                        <!-- ./layered -->
+
+                    </div>
+                </div>
+                <!-- ./block filter  -->
+            </div>
+            <!-- ./left colunm -->
+            <!-- Center colunm-->
+            <div class="center_column col-xs-12 col-sm-9" id="center_column">
+                <!-- view-product-list-->
+                <div id="view-product-list" class="view-product-list">
+                    <h2 class="page-heading">
+                        <span class="page-heading-title">{{$dataCate->name}}</span>
+                    </h2>
+                    <!-- PRODUCT LIST -->
+                    <ul class="row product-list grid filter_data" id="myList">
+                        
+                    </ul>
+                    <!-- ./PRODUCT LIST -->
+                </div>
+                <!-- ./view-product-list-->
+                  <div class="sortPagiBar">
+                    <div class="bottom-pagination">
+                        <button id="loadMore">Load more</button>
+                    </div>
+                </div>  
+            </div>
+            <!-- ./ Center colunm -->
+        </div>
+        <!-- ./row-->
+    </div>
+</div>
+<script id="script"></script>
+
 @endsection

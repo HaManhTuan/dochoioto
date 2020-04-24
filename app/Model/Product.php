@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
   protected $table    = 'product';
-	protected $fillable = ['name', 'url', 'stock', 'category_id','author_id', 'description', 'status', 'image', 'price', 'promotional_price', 'sale','content','author_id'];
+	protected $fillable = ['name', 'url', 'stock', 'category_id','author_id', 'description', 'status', 'image', 'price', 'promotional_price', 'sale','content','author_id','brand_id'];
 	public $timestamps  = true;
 	public function attributes() {
 		return $this->hasMany('App\Model\ProductAttr', 'product_id');

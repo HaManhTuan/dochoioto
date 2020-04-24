@@ -65,7 +65,8 @@ class MediaController extends Controller
 		$data       = '<input type="hidden" name="edit_id" value="'.$media_edit->id.'">
       <div class="form-group">
       <label for="category_name_input" class="control-label">Ảnh<font color="#a94442">(*)</font></label>
-      <input type="file" id="input-file-now" name="image" class="dropify" data-rule-required="true" data-default-file="'.asset('public/uploads/images/media/').'/'.''.$media_edit->image.'" >
+      <input type="file" id="input-file-now" name="image" class="dropify" data-rule-required="true" 
+      data-default-file="'.asset('public/uploads/images/media/').'/'.''.$media_edit->image.'" >
       <input type="hidden" name="old_file" value="'.$media_edit->image.'" />
       </div>
       <div class="form-group">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Model\Product;
 use App\Model\Category;
 use App\Model\ProductImage;
+use App\Model\Brand;
 use App\Http\Requests\StoreProduct;
 use Auth;
 class ProductController extends Controller
@@ -28,9 +29,10 @@ class ProductController extends Controller
         {
             return view('backend.errors.401');
         }
+        $dataBrand = Brand::get();
         $categoryController = new CategoryController();
         $data_select = $categoryController->getDataSelect(0, '', '');
-        $data_send = ['categoryData' => $data_select, ];
+        $data_send = ['categoryData' => $data_select,'dataBrand' => $dataBrand ];
         return view('backend.product.add')->with($data_send);
     }
     public function addpro(StoreProduct $req)
@@ -55,6 +57,7 @@ class ProductController extends Controller
         $request['author_id'] = Auth::id();
         $request['promotional_price'] = $promotional_price;
         $request['stock'] = $req->stock;
+        $request['brand_id'] = $req->brand_id;
         $request['status'] = $req->has('status') ? '1' : '0';
         $target_save = "public/uploads/images/products/";
 
@@ -132,6 +135,7 @@ class ProductController extends Controller
         {
             return view('backend.errors.401');
         }
+        $dataBrand = Brand::get();
         $product_detail = Product::where(['url' => $url])->first();
         $categoryController = new CategoryController();
         $data_select = $categoryController->getDataSelect(0, '', $product_detail->category_id);
@@ -139,7 +143,7 @@ class ProductController extends Controller
             ->category_id])
             ->first();
         $category_name = $category_detail->name;
-        $data_send = ['product_detail' => $product_detail, 'category_name' => $category_name, 'data_select' => $data_select];
+        $data_send = ['product_detail' => $product_detail, 'category_name' => $category_name, 'data_select' => $data_select,'dataBrand' => $dataBrand];
         if ($req->isMethod('post'))
         {
             //print_r($req->all());
@@ -155,6 +159,7 @@ class ProductController extends Controller
             $promotional_price = (int)preg_replace("/[\,\.]+/", "", $req->promotional_price);
             $request['sale'] = parent::sale($promotional_price, $price);
             $request['price'] = $price;
+             $request['brand_id'] = $req->brand_id;
             $request['promotional_price'] = $promotional_price;
             $request['status'] = $req->has('status') ? '1' : '0';
             $target_save = "public/uploads/images/products/";
