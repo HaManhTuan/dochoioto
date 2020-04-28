@@ -58,7 +58,7 @@
                   </div><!-- /.container-fluid -->
                   <div id="elevator-{{$element->id}}" class="floor-elevator">
                         <a href="@if ($key1 == "0")#@elseif($key1 == "1")#elevator-{{$element->id - 1}}@elseif($key1 == "2")#elevator-{{$element->id - 1}}@endif" class="btn-elevator up {{$key1 == "0" ? "disabled":""}} fa fa-angle-up"></a>
-                        <a href="#elevator-{{$element->id}}" class="btn-elevator down fa fa-angle-down"></a>
+                        <a href="#elevator-{{$element->id + 1}}" class="btn-elevator down fa fa-angle-down"></a>
                   </div>
                 </nav>
                 <div class="product-featured clearfix">

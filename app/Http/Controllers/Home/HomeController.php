@@ -11,6 +11,7 @@ use App\Model\Blog;
 use App\Model\Brand;
 use App\Model\ProductImage;
 use View;
+use Cart;
 class HomeController extends Controller
 {
   public function __construct()
@@ -18,7 +19,10 @@ class HomeController extends Controller
     $media_slider = Media::where('position',1)->get();
     $dataBrand = Brand::orderBy('created_at','ASC')->get();
     $dataBlog = Blog::where('status',1)->orderBy('created_at','asc')->paginate(4);
-    $data_send = ['media_slider' => $media_slider, 'dataBlog' =>$dataBlog,'dataBrand' => $dataBrand];
+    $cart_data = \Cart::getContent();
+    $cart_subtotal = \Cart::getSubTotal();
+    $count_cart = $cart_data->count();
+    $data_send = ['media_slider' => $media_slider, 'dataBlog' =>$dataBlog,'dataBrand' => $dataBrand, 'cart_data' => $cart_data, 'cart_subtotal' => $cart_subtotal, 'count_cart' => $count_cart];
     View::share($data_send);
   }
   public function index(){

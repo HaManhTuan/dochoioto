@@ -106,7 +106,20 @@
                                 <!-- product-imge-->
                             </div>
                             <div class="pb-right-column col-xs-12 col-sm-6">
+                                <form action="{{ url('/add-cart') }}" method="POST" onsubmit="return false;" id="frm-cart">
+                                    @csrf
                                 <h1 class="product-name">{{$dataPro->name}}</h1>
+                                <input type="hidden" name="product_name" id="product_name" value="{{ $dataPro->name }}">
+                              @if($dataPro->promotional_price != 0)
+                              <input type="hidden" name="price" id="price" value="{{ $dataPro->promotional_price }}">
+                              @endif
+                              @if($dataPro->promotional_price == 0)
+                              <input type="hidden" name="price" id="price" value="{{ $dataPro->price }}">
+                              @endif
+                              <input type="hidden" name="product_id" id="product_id" value="{{ $dataPro->id }}">
+                              <input type="hidden" name="avatar" id="avatar" value="{{ $dataPro->image }}">
+                              <input type="hidden" name="url" id="url" value="{{ $dataPro->url }}">
+                                <input type="hidden" name="product_id" value="{{$dataPro->id}}">
                                 <div class="product-price-group">
                                   @if ($dataPro->promotional_price > 0)
                                     <span class="price">{{number_format($dataPro->promotional_price)}} đ</span>
@@ -115,19 +128,24 @@
                                   @else
                                    <span class="price">{{number_format($dataPro->price)}} đ</span>
                                   @endif
-                                    
                                 </div>
+
                                 <div class="info-orther">
                                     <p>Trạng thái: <span class="in-stock">{{$dataPro->stock < 1 ? "Hết hàng" : "Còn hàng"}}</span></p>
                                 </div>
                                 <div class="product-desc">
                                    {!! $dataPro->description!!}
                                 </div>
+                                <div class="form-inline" style="display: flex;">
+                                     <label>Số lượng: </label>
+                                        <input type="number" name="qty" class="form-control qty-edit" style="margin: 0px 30px;width: 80px;"  value="1"/>                                                     
+                                </div>
                                 <div class="form-action">
                                     <div class="button-group">
-                                        <a class="btn-add-cart" href="#">Thêm vào giỏ hàng</a>
+                                        <a class="btn-add-cart" href="#" id="addCart">Thêm vào giỏ hàng</a>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                         </div>
                         <!-- tab product -->
@@ -239,5 +257,49 @@
         <!-- ./row-->
     </div>
 </div>
+<script src="{{ asset('public/admin/notify.js') }}"></script>
+<script>
+function number_format(number, decimals, dec_point, thousands_sep) {
+    // * example 1: number_format(1234.5678, 2, '.', '');
+    // * returns 1: 1234.57
+    number = number.toString().replace(/[(,)|(.)]/g, "");
 
+    var n = number, c = isNaN(decimals = Math.abs(decimals)) ? 2 : decimals;
+    var d = dec_point == undefined ? "," : dec_point;
+    var t = thousands_sep == undefined ? "." : thousands_sep, s = n < 0 ? "-" : "";
+    var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+}
+  $('.qty-edit').bind('keyup paste', function(){
+        this.value = this.value.replace(/[^0-9]/g, '');
+  });
+ $("#addCart").click(function() {
+    let action = $("#frm-cart").attr('action');
+    let method = $("#frm-cart").attr('method');
+    let form   = $("#frm-cart").serialize();
+    $.ajax({
+        url: action,
+        type: method,
+        dataType: 'JSON',
+        data: form,
+        success: function(data){
+              if (data.status =="_success") {
+                    $('html, body').animate({scrollTop: 0}, 2000);
+                    $("#cart-block").html(data['cartblock']);
+                    $.notify(data.success,"success");
+                    
+              }
+              else
+              {
+                 $('html, body').animate({scrollTop: 0}, 'slow');
+                  $.notify(data.msg,"error");
+              }
+        },
+        error: function(err){
+            console.log(err);
+        }
+    }); 
+ });
+</script>
 @endsection

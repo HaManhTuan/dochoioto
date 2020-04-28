@@ -10,14 +10,29 @@
                 <a href="#">Dịch vụ</a>
                 <a href="#">Hướng dẫn</a>
             </div>
-            <div id="user-info-top" class="user-info pull-right">
-                <div class="dropdown">
-                    <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>Tài khoản</span></a>
-                    <ul class="dropdown-menu mega_dropdown" role="menu">
-                        <li><a href="{{ url('/dang-nhap') }}">Đăng nhập</a></li>
-                    </ul>
+             @if(Auth::guard('customers')->check())
+                <div id="user-info-top" class="user-info pull-right">
+                    <div class="dropdown">
+                        <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>{{Auth::guard('customers')->user()->name}}</span></a>
+                        <ul class="dropdown-menu mega_dropdown" role="menu">
+                            <li><a href="{{ url('/account') }}">Cài đặt</a></li>
+                            <li><a href="{{ url('/history') }}">Lịch sử</a></li>
+                            <li><a href="{{ url('/dang-xuat') }}">Đăng xuất</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+        
+
+             @else
+                <div id="user-info-top" class="user-info pull-right">
+                    <div class="dropdown">
+                        <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>Tài khoản</span></a>
+                        <ul class="dropdown-menu mega_dropdown" role="menu">
+                            <li><a href="{{ url('/dang-nhap') }}">Đăng nhập</a></li>
+                        </ul>
+                    </div>
+                </div>
+             @endif
         </div>
     </div>
     <!--/.top-header -->
@@ -44,50 +59,44 @@
             </div>
             <div class="col-xs-5 col-sm-2 group-button-header">
                 <div class="btn-cart" id="cart-block">
-                    <a title="My cart" href="cart.html">Cart</a>
-                    <span class="notify notify-right">2</span>
-                    <div class="cart-block">
-                        <div class="cart-block-content">
-                            <h5 class="cart-title">2 sản phẩm trong giỏ hàng</h5>
-                            <div class="cart-block-list">
-                                <ul>
-                                <li class="product-info">
-                                    <div class="p-left">
-                                        <a href="#" class="remove_link"></a>
-                                        <a href="#">
-                                        <img class="img-responsive" src="{{ asset('public/frontend/assets/data/product-100x122.jpg') }}" alt="p10">
-                                        </a>
-                                    </div>
-                                    <div class="p-right">
-                                        <p class="p-name">Donec Ac Tempus</p>
-                                        <p class="p-rice">61,19 €</p>
-                                        <p>Qty: 1</p>
-                                    </div>
-                                </li>
-                                <li class="product-info">
-                                    <div class="p-left">
-                                        <a href="#" class="remove_link"></a>
-                                        <a href="#">
-                                        <img class="img-responsive" src="{{ asset('public/frontend/assets/data/product-s5-100x122.jpg') }}" alt="p10">
-                                        </a>
-                                    </div>
-                                    <div class="p-right">
-                                        <p class="p-name">Donec Ac Tempus</p>
-                                        <p class="p-rice">61,19 €</p>
-                                        <p>Qty: 1</p>
-                                    </div>
-                                </li>
-                            </ul>
-                            </div>
-                            <div class="toal-cart">
-                                <span>Tổng</span>
-                                <span class="toal-price pull-right">122.38 €</span>
-                            </div>
-                            <div class="cart-buttons">
-                                <a href="order.html" class="btn-check-out">Thanh toán</a>
+                    @if (isset($cart_data) && count($cart_data) > 0)
+                        <a title="My cart" href="{{ url('/view-cart') }}">Giỏ hàng</a>
+                        <span class="notify notify-right">{{ $count_cart }}</span>
+                        <div class="cart-block">
+                            <div class="cart-block-content">
+                                <h5 class="cart-title">{{ $count_cart}} sản phẩm trong giỏ hàng</h5>
+                                <div class="cart-block-list">
+                                    <ul>
+                                        @foreach ($cart_data as $element)
+                                            <li class="product-info">
+                                                <div class="p-left">
+                                                    <a href="#" class="remove_link"></a>
+                                                    <a href="#">
+                                                    <img class="img-responsive" src="{{ asset('public/uploads/images/products/'.$element->attributes->avatar) }}" alt="p10">
+                                                    </a>
+                                                </div>
+                                                <div class="p-right">
+                                                    <p class="p-name">{{$element->name}}</p>
+                                                    <p class="p-rice">{{number_format($element->price)}}</p>
+                                                    <p>Qty: {{$element->quantity}}</p>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                </ul>
+                                </div>
+                                <div class="toal-cart">
+                                    <span>Tổng</span>
+                                    <span class="toal-price pull-right">{{ number_format($cart_subtotal)}}</span>
+                                </div>
+                                <div class="cart-buttons">
+                                    <a href="order.html" class="btn-check-out">Thanh toán</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @else
+                    <a title="My cart" href="{{ url('/view-cart') }}">Giỏ hàng</a>
+                    <span class="notify notify-right">0</span>
+                    @endif
                 </div>
 
             </div>
@@ -173,3 +182,8 @@
         </div>
     </div>
 </div>
+<style type="text/css" media="screen">
+    .product-info .remove_link:hover{
+        color: red !important;
+    }
+</style>

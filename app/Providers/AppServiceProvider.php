@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Model\Config;
+use Cart;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,7 +26,11 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('*', function ($view) {
             $dataConfig = Config::find(1);
-            $view->with('dataConfig', $dataConfig);
+            $cart_data = Cart::getContent();
+            $count_cart = $cart_data->count();
+            $cart_subtotal = Cart::getSubTotal();
+
+            $view->with(['dataConfig' => $dataConfig, 'cart_data' => $cart_data, 'count_cart' => $count_cart ,'cart_subtotal' => $cart_subtotal]);
         });
     }
 }

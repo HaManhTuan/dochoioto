@@ -35,10 +35,10 @@ class CreateProductTable extends Migration
                 ->references('id')->on('category')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('brand_id')
-                ->references('id')->on('brand')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            // $table->foreign('brand_id')
+            //     ->references('id')->on('brand')
+            //     ->onUpdate('cascade')
+            //     ->onDelete('cascade');
         });
     }
 
