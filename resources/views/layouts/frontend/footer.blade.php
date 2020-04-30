@@ -67,7 +67,7 @@
             <div id="footer-menu-box">
                 <div class="col-sm-12">
                     <ul class="footer-menu-list">
-                        <li><a href="#" >Company Info - Partnerships</a></li>
+                        <li><a href="{{ url('/') }}" >Đồ chơi ô tô Hoàng Lãm</a></li>
                     </ul>
                 </div>
             </div><!-- /#footer-menu-box -->

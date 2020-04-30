@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Model\Category;
 use App\Model\Config;
+use App\Model\LandingPage;
 class ViewServiceProvider extends ServiceProvider
 {
     public function get_menu_data($parent_id = 0, $type = '', $status = 1) {
@@ -46,7 +47,9 @@ class ViewServiceProvider extends ServiceProvider
     {
         $menu_data = $this->get_menu_data(0, "", 1);
         $dataConfig = Config::find(1);
-        $data_send = ['menu_data' => $menu_data,'dataConfig' =>$dataConfig];
+        $dataLanding = LandingPage::where('status',1)->orderBy('id','DESC')->paginate(1);
+        $dataLandingHeader = LandingPage::where('status',1)->where('id','>',1)->orderBy('id','DESC')->paginate(10);
+        $data_send = ['menu_data' => $menu_data,'dataConfig' =>$dataConfig, 'dataLanding' => $dataLanding,'dataLandingHeader' => $dataLandingHeader];
         view()->share($data_send);
     }
 }

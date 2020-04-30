@@ -10,6 +10,8 @@ use App\Model\Media;
 use App\Model\Blog;
 use App\Model\Brand;
 use App\Model\ProductImage;
+use App\Model\LandingPage;
+use App\Model\Contact;
 use View;
 use Cart;
 class HomeController extends Controller
@@ -124,5 +126,44 @@ class HomeController extends Controller
    public function giasoc(){
     $dataproSale = Product::where('promotional_price','<>','0')->paginate(12);
     return view('frontend.home.sale', compact('dataproSale',$dataproSale));
+   }
+   public function introl($url)
+   {
+       $dataproIntrol = LandingPage::where('url',$url)->first();
+       $dataIntrol = LandingPage::where('url','!=',$url)->get();
+       $data_send = ['dataproIntrol' =>$dataproIntrol,'dataIntrol' => $dataIntrol];
+       return view('frontend.home.introl')->with($data_send);
+   }
+   public function contact()
+   {
+      return view('frontend.home.contact');
+   }
+   public function contactpost(Request $req){
+      $query = Contact::create($req->all());
+      if ( $query) {
+         $msg = [
+          'status' => '_success',
+          'msg'    => 'Cảm ơn bạn đã liên hệ với chúng tôi
+          '
+        ];
+        return response()->json($msg);
+      }
+      else
+      {
+         $msg = [
+          'status' => '_error',
+          'msg'    => 'Lỗi. Vui lòng thử lại sau
+          '
+        ];
+        return response()->json($msg);
+      }
+   }
+   public function search(Request $req)
+   {
+
+      $dataSearch = Product::where('name','LIKE','%'.$req->key.'%')->paginate(12);
+      $data_send = ['dataSearch' => $dataSearch,
+      'key' => $req->key];
+      return view('frontend.home.search')->with($data_send);
    }
 }

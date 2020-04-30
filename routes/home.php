@@ -8,7 +8,8 @@ Route::get('/dang-xuat','LoginController@dangxuat');
 //Profile
 Route::get('account','ProfileController@account');
 Route::post('/update-account','ProfileController@updateaccount');
-Route::post('/account/history-orderdetail','ProfileController@historyorderdetail');
+Route::post('/account/edit-password','ProfileController@editpass');
+
 //Home
 Route::get('/gia-soc','HomeController@giasoc');
 Route::get('/danh-muc/{url}','HomeController@category');
@@ -24,3 +25,10 @@ Route::get('cart/step', 'CheckoutController@step');
 Route::post('cart/step-continue', 'CheckoutController@stepcontinue');
 Route::post('cart/check-out', 'CheckoutController@checkout');
 Route::get('cart/thanks', 'CheckoutController@thank');
+//Introl
+Route::get('introl/{url}', 'HomeController@introl');
+//Contac
+Route::get('contact', 'HomeController@contact');
+Route::post('contact-post', 'HomeController@contactpost');
+//Search
+Route::get('/search', 'HomeController@search');

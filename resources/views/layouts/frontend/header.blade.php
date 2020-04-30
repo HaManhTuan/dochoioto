@@ -2,21 +2,23 @@
     <div class="top-header">
         <div class="container">
             <div class="nav-top-links">
-                <a class="first-item" href="#"><img alt="phone" src="{{ asset('public/frontend/assets/images/phone.png') }}" />00-62-658-658</a>
-                <a href="#"><img alt="email" src="{{ asset('public/frontend/assets/images/email.png') }}" />Liên hệ !</a>
+                <a class="first-item" href="#"><img alt="phone" src="{{ asset('public/frontend/assets/images/phone.png') }}" />{{$dataConfig->phone }}</a>
+                <a href="{{ url('/contact') }}"><img alt="email" src="{{ asset('public/frontend/assets/images/email.png') }}" />Liên hệ !</a>
             </div>
             
             <div class="support-link">
-                <a href="#">Dịch vụ</a>
-                <a href="#">Hướng dẫn</a>
+                @foreach ($dataLandingHeader as $element)
+                   <a href="{{ url('/introl/'.$element->url) }}">{{$element->name}}</a>
+                @endforeach
+             
+                
             </div>
              @if(Auth::guard('customers')->check())
                 <div id="user-info-top" class="user-info pull-right">
                     <div class="dropdown">
                         <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>{{Auth::guard('customers')->user()->name}}</span></a>
                         <ul class="dropdown-menu mega_dropdown" role="menu">
-                            <li><a href="{{ url('/account') }}">Cài đặt</a></li>
-                            <li><a href="{{ url('/history') }}">Lịch sử</a></li>
+                            <li><a href="{{ url('/account') }}">Tài khoản</a></li>
                             <li><a href="{{ url('/dang-xuat') }}">Đăng xuất</a></li>
                         </ul>
                     </div>
@@ -40,19 +42,12 @@
     <div class="container main-header">
         <div class="row">
             <div class="col-xs-12 col-sm-3 logo">
-                <a href="index-2.html"><img alt="Kute Shop" src="{{ asset('public/frontend/assets/images/logo2.png') }}" /></a>
+                <a href="{{ url('/') }}"><img alt="Kute Shop" src="{{ asset('public/frontend/assets/images/logo2.png') }}" /></a>
             </div>
             <div class="col-xs-7 col-sm-7 header-search-box">
-                <form class="form-inline">
-                      <div class="form-group form-category">
-                        <select class="select-category">
-                            <option value="2">Danh mục</option>
-                            <option value="1">Men</option>
-                            <option value="2">Women</option>
-                        </select>
-                      </div>
+                <form class="form-inline" action="{{ url('/search') }}" method="GET">
                       <div class="form-group input-serach">
-                        <input type="text"  placeholder="Nhập từ khóa...">
+                        <input type="text" name="key" placeholder="Nhập từ khóa...">
                       </div>
                       <button type="submit" class="pull-right btn-search"></button>
                 </form>
@@ -89,7 +84,7 @@
                                     <span class="toal-price pull-right">{{ number_format($cart_subtotal)}}</span>
                                 </div>
                                 <div class="cart-buttons">
-                                    <a href="order.html" class="btn-check-out">Thanh toán</a>
+                                    <a href="{{ url('view-cart') }}" class="btn-check-out">Xem </a>
                                 </div>
                             </div>
                         </div>
@@ -159,9 +154,9 @@
                                 <ul class="nav navbar-nav">
                                     <li class="{{(request()->is('/') ? "active":"")}}"><a href=" {{ url('/') }}">Trang chủ</a></li>
                                     <li class="{{(request()->is('gia-soc') ? "active":"")}}"><a href="{{ url('/gia-soc') }}">Giá sốc</a></li>
-                                    <li><a href="category.html">Hướng dẫn mua hàng</a></li>
-                                    <li><a href="category.html">Hỗ trợ</a></li>
-                                    <li><a href="category.html">Kiểm tra đơn hàng</a></li>
+                                    @foreach ($dataLanding  as $key => $element)
+                                     <li><a href="{{ url('/introl/'.$element->url) }}">{{ $element->name}}</a></li>
+                                    @endforeach
                                 </ul>
                             </div><!--/.nav-collapse -->
                         </div>

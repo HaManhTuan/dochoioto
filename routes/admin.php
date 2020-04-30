@@ -77,6 +77,23 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
         Route::match(['get', 'post'], 'edit-brand/{id}', 'BrandController@editbrand');
         Route::post('delete-brand', 'BrandController@delbrand');
     });
-
+    //LandingPage
+     Route::group(['prefix' => 'landingpage', 'middleware' => 'Admin'], function () {
+        Route::get('view', 'LandingPageController@view');
+        Route::get('add', 'LandingPageController@add');
+        Route::post('add-landing', 'LandingPageController@addlanding');
+        Route::match(['get', 'post'], 'edit-landing/{id}', 'LandingPageController@editlanding');
+        // Route::post('delete-brand', 'BrandController@delbrand');
+    });
+     //Contact
+    Route::group(['prefix' => 'contact', 'middleware' => 'Admin'], function () {
+        Route::get('view', 'ContactController@view');
+        Route::post('view-modal', 'ContactController@modal');
+    });
+    //Order
+    Route::group(['prefix' => 'order', 'middleware' => 'Admin'], function () {
+        Route::get('view', 'OrderController@view');
+        Route::get('view-orderdetail/{id}', 'OrderController@vieworder');
+    });
 });
 ?>
