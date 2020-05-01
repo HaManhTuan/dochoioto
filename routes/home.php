@@ -15,6 +15,8 @@ Route::get('/gia-soc','HomeController@giasoc');
 Route::get('/danh-muc/{url}','HomeController@category');
 Route::get('/san-pham/{url}','HomeController@product');
 Route::post('/filter-product/{url}','HomeController@filter');
+Route::get('/bai-viet/{id}','HomeController@blog');
+
 //Cart
 Route::post('add-cart','CartController@add');
 Route::get('view-cart','CartController@view');

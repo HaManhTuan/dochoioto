@@ -1,6 +1,6 @@
 @extends('layouts.admin.admin')
 @section('content')
-<link rel="stylesheet" href="{{ asset('public/frontend/css-custom/dropify.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/admin/dropify.css') }}">
 <style>
     .error{
         color: brown;
@@ -57,7 +57,7 @@
                           <label class="control-label col-sm-2" for="last-name">Logo <span class="required">*</span></ul></label>
                           <div class="col-sm-8">
                              
-                             <input type="hidden" name="logo_old" value="{{ $config->img_logo }}">
+                             <input type="hidden" name="logo_old" value="{{ $config->logo }}">
                              <input type="file" id="logo" name="logo" class="form-control input-transparent dropify"
                              data-default-file="{{ asset('public/uploads/images/config/'.$config->logo) }}">
                           </div>
@@ -118,7 +118,7 @@
 </div>
 <script src="{{ asset('public/admin/assets/js/plugins/jquery.validate.min.js')}}"></script>
 <script src="{{ asset('public/admin/assets/js/plugins/sweetalert2.all.js')}}"></script>
-<script src="{{ asset('public/frontend/js-custom/dropify.min.js') }}"></script>
+<script src="{{ asset('public/admin/dropify.js') }}"></script>
 <script>
     $(".dropify").dropify();
 </script>

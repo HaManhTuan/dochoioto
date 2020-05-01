@@ -94,6 +94,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
     Route::group(['prefix' => 'order', 'middleware' => 'Admin'], function () {
         Route::get('view', 'OrderController@view');
         Route::get('view-orderdetail/{id}', 'OrderController@vieworder');
+        Route::post('change-customer', 'OrderController@changecustomer');
+        Route::post('change-status', 'OrderController@changestatus');
+        Route::get('invoice/{id}', 'OrderController@invoice');
+        Route::get('send-mail/{id}', 'OrderController@sendEMail');
     });
+
 });
 ?>

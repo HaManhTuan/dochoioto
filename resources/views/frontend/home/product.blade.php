@@ -140,11 +140,15 @@
                                      <label>Số lượng: </label>
                                         <input type="number" name="qty" class="form-control qty-edit" style="margin: 0px 30px;width: 80px;"  value="1"/>                                                     
                                 </div>
-                                <div class="form-action">
+                                @if ($dataPro->stock > 0)
+                                    <div class="form-action">
                                     <div class="button-group">
                                         <a class="btn-add-cart" href="#" id="addCart">Thêm vào giỏ hàng</a>
                                     </div>
                                 </div>
+                                @endif
+                                
+
                                 </form>
                             </div>
                         </div>
@@ -163,20 +167,7 @@
                                    {!! $dataPro->content!!}
                                 </div>
                                 <div id="information" class="tab-panel">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td width="200">Compositions</td>
-                                            <td>Cotton</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Styles</td>
-                                            <td>Girly</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Properties</td>
-                                            <td>Colorful Dress</td>
-                                        </tr>
-                                    </table>
+                                    <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#{{$dataPro->url}}" data-numposts="5" data-width="100%"></div>
                                 </div>
                             </div>
                         </div>
@@ -257,6 +248,8 @@
         <!-- ./row-->
     </div>
 </div>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0"></script>
 <script src="{{ asset('public/admin/notify.js') }}"></script>
 <script>
 function number_format(number, decimals, dec_point, thousands_sep) {

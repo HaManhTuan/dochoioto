@@ -116,18 +116,18 @@
                     @foreach ($dataBlog as $element)
                     <li>
                         <div class="post-thumb image-hover2">
-                            <a href="#"><img src="{{ asset('public/uploads/images/blog/'.$element->image) }}" alt="Blog"></a>
+                            <a href="{{ url('bai-viet/'.$element->id) }}"><img src="{{ asset('public/uploads/images/blog/'.$element->image) }}" alt="Blog"></a>
                         </div>
                         <div class="post-desc">
                             <h5 class="post-title">
-                                <a href="#">{{$element->name}}</a>
+                                <a href="{{ url('bai-viet/'.$element->id) }}">{{$element->name}}</a>
                             </h5>
                             <div class="post-meta">
                                 <span class="date">{{date("d-m-Y", strtotime($element->created_at))}}</span>
                                
                             </div>
                             <div class="readmore">
-                                <a href="#">Đọc tiếp</a>
+                                <a href="{{ url('bai-viet/'.$element->id) }}">Đọc tiếp</a>
                             </div>
                         </div>
                     </li>

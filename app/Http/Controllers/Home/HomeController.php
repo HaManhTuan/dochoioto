@@ -116,6 +116,7 @@ class HomeController extends Controller
     $dataTop4News = Product::orderBy('created_at','ASC')->paginate(4);
     $dataNews = Product::orderBy('created_at','ASC')->paginate(16);
     $dataPro = Product::where('url',$url)->first();
+    $dataPro->increment('count_view');
     $nameCate = Category::where('id',$dataPro->category_id)->first();
     $dataCate = Category::with('categories')->where('id',$nameCate->id)->first();
     $dataImage = ProductImage::where('product_id',$dataPro->id)->get();
@@ -165,5 +166,15 @@ class HomeController extends Controller
       $data_send = ['dataSearch' => $dataSearch,
       'key' => $req->key];
       return view('frontend.home.search')->with($data_send);
+   }
+   public function blog($id)
+   {
+    $dataBlog = Blog::where('id',$id)->first();
+    $blogReleast = Blog::where('id','!=',$id)->get();
+    $data_send = [
+      'dataBlog' => $dataBlog,
+      'blogReleast' => $blogReleast
+    ];
+    return view('frontend.home.blog_detail')->with($data_send);
    }
 }

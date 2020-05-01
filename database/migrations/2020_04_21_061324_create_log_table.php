@@ -17,7 +17,7 @@ class CreateLogTable extends Migration
             $table->increments('id');
             $table->string('user_id');
             $table->integer('order_id');
-            $table->json('meta')->nullable();
+            $table->longtext('meta')->nullable();
             $table->timestamps();
         });
     }

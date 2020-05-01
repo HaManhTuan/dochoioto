@@ -1,5 +1,8 @@
 @extends('layouts.admin.admin')
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{ asset('public/admin/assets/vendor/datatables/css/dataTables.bootstrap4.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('public/admin/assets/vendor/datatables/css/buttons.bootstrap4.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('public/admin/assets/vendor/datatables/css/fixedHeader.bootstrap4.css')}}">
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
@@ -52,13 +55,17 @@
                                           @elseif($orders->order_status == 2)
                                           <span class="label label-primary" style="margin-left: 10px">Đang xử lý</span>
                                           @elseif($orders->order_status == 3)
-                                          <span class="label label-warning" style="margin-left: 10px">Đang chuyển</span>
+                                          <span class="label label-danger" style="margin-left: 10px">Đang chuyển</span>
                                           @elseif($orders->order_status == 4)
-                                          <span class="label label-info" style="margin-left: 10px">Đã chuyển</span>
+                                          <span class="label label-primary" style="margin-left: 10px">Đã chuyển</span>
                                           @elseif($orders->order_status == 5)
                                           <span class="label label-danger" style="margin-left: 10px">Đã hủy</span>
                                       @endif</td>
-                                      <td><a href="{{ url('admin/order/view-orderdetail/'.$orders->id) }}">Chi tiết</a></td>
+                                      <td>
+                                        @can('view_order')
+                                        <a href="{{ url('admin/order/view-orderdetail/'.$orders->id) }}">Chi tiết</a>
+                                        @endcan
+                                      </td>
                                   </tr>
                                   @endforeach
                               </tbody>
@@ -67,4 +74,17 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('public/admin/assets/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('public/admin/assets/vendor/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('public/admin/assets/vendor/datatables/js/data-table.js')}}"></script>
+<script>
+  $('#orders-table').DataTable({
+    "columnDefs": [
+        { "orderable": false, "targets": 0 },
+        { "orderable": false, "targets": 2 },
+        { "orderable": false, "targets": 5 }
+        ],
+      "order": [],
+  });
+</script>
 @endsection
