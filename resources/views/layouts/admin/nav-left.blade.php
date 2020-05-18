@@ -47,6 +47,11 @@
                         <i class="fas fa-dolly-flatbed"></i>Đơn hàng</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ (request()->is('admin/customer/view')) ? 'active' : '' }}" href="
+                            {{ url('admin/customer/view') }}"  aria-expanded="false">
+                        <i class="fas fa-user-plus"></i>Khách hàng</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ (request()->is('admin/blog/view-blog')) ? 'active' : '' }}" href="{{ url('admin/blog/view-blog') }}"  aria-expanded="false">
                         <i class="far fa-newspaper"></i>Tin tức</a>
                     </li>

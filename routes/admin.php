@@ -99,6 +99,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
         Route::get('invoice/{id}', 'OrderController@invoice');
         Route::get('send-mail/{id}', 'OrderController@sendEMail');
     });
+    Route::group(['prefix' => 'customer', 'middleware' => 'Admin'], function () {
+        Route::get('view', 'CustomerController@view');
+        Route::post('view-modal', 'CustomerController@viewmodal');
+    });
 
 });
 ?>

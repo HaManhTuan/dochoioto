@@ -14,9 +14,11 @@
                             <li>
                                 <div class="left-block">
                                     <a href="{{ url('san-pham/'.$element->url) }}"><img class="img-responsive" alt="product" src="{{ asset('public/uploads/images/products/'.$element->image) }}" /></a>
-                                    <div class="add-to-cart">
-                                        <a title="Add to Cart" href="#">Add to Cart</a>
-                                    </div>
+                                  
+                                        <div class="add-to-cart">
+                                            <a title="Add to Cart" class="addTocart" data-id="{{$element->id}}" data-name="{{$element->name}}" data-quantity="1" data-price="{{$element->promotional_price > 0 ? $element->promotional_price : $element->price }}" data-avatar="{{$element->image}}" data-url="{{$element->url}}" data-product_id="{{$element->id}}" data-action="{{ url('/add-cart') }}">Add to Cart</a>
+                                        </div>
+                                    
                                     <div class="price-percent-reduction2">
                                         -{{$element->sale}}% 
                                     </div>
@@ -77,9 +79,13 @@
                                                     <li class="col-sm-3">
                                                         <div class="left-block">
                                                             <a href="{{ url('san-pham/'.$item1->url) }}"><img class="img-responsive" alt="product" src="{{ asset('public/uploads/images/products/'.$item1->image) }}" /></a>
+                                                           
                                                             <div class="add-to-cart">
-                                                                <a title="Add to Cart" href="#">Add to Cart</a>
+                                                                <a  title="Add to Cart"  class="addTocart" data-id="{{$item1->id}}" data-name="{{$item1->name}}" data-quantity="1" data-price="{{$item1->promotional_price > 0 ? $item1->promotional_price : $item1->price }}" data-avatar="{{$item1->image}}" data-url="{{$item1->url}}" data-product_id="{{$item1->id}}" data-action="{{ url('/add-cart') }}">Add to Cart</a>
                                                             </div>
+                                                               
+                                                           
+
                                                         </div>
                                                         <div class="right-block">
                                                             <h5 class="product-name"><a href="{{ url('san-pham/'.$item1->url) }}">{{$item1->name}}</a></h5>
@@ -100,8 +106,6 @@
                 </div>
             </div>
         @endforeach
-        
-        <!-- end featured category fashion -->
     </div>
 </div>
 <div id="content-wrap">
@@ -138,4 +142,44 @@
         <!-- ./blog list -->
     </div> <!-- /.container -->
 </div>
+<script src="{{ asset('public/admin/notify.js') }}"></script>
+<script>
+$(".addTocart").click(function() {
+   let id = $(this).data("id");
+   let name = $(this).data("name");
+   let price = $(this).data("price");
+   let quantity = $(this).data("quantity");
+   let avatar = $(this).data("avatar");
+   let url = $(this).data("url");
+   let product_id = $(this).data("product_id");
+   let action = $(this).data("action");
+   $.ajax({
+        url: action,
+        type: "POST",
+        dataType: 'JSON',
+        headers: {
+              'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+        },
+        data: {id: id, product_name: name, price: price, qty: quantity, avatar: avatar
+            , url: url, product_id: product_id},
+        success: function(data){
+            console.log(data);
+              if (data.status =="_success") {
+                    $('html, body').animate({scrollTop: 0}, 2000);
+                    $("#cart-block").html(data['cartblock']);
+                    $.notify(data.success,"success");
+              }
+              else
+              {
+                 $('html, body').animate({scrollTop: 0}, 'slow');
+                  $.notify(data.msg,"error");
+              }
+        },
+        error: function(err){
+            console.log(err);
+        }
+    }); 
+ 
+ });
+</script>
 @endsection

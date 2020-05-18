@@ -9,6 +9,7 @@ use App\Model\Product;
 class CartController extends Controller
 {
   public function add(Request $req){
+    //print_r($req->all());
      $stock = Product::where('id', $req->product_id)->value('stock');
      if ($stock >= $req->qty && $stock > 0) {
         Cart::add(

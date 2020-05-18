@@ -271,6 +271,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     let action = $("#frm-cart").attr('action');
     let method = $("#frm-cart").attr('method');
     let form   = $("#frm-cart").serialize();
+    //console.log(form);
     $.ajax({
         url: action,
         type: method,
